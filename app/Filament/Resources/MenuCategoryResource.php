@@ -17,6 +17,8 @@ class MenuCategoryResource extends Resource
 {
     protected static ?string $model = MenuCategory::class;
 
+    protected static ?string $modelLabel = 'Menu Kategori';
+
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $navigationGroup = "Menu";

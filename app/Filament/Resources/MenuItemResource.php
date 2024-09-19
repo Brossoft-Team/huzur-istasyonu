@@ -18,6 +18,8 @@ class MenuItemResource extends Resource
 {
     protected static ?string $model = MenuItem::class;
 
+    protected static ?string $modelLabel = 'Menu İtem';
+
     protected static ?string $navigationIcon = 'heroicon-o-bars-3';
 
     protected static ?string $navigationGroup = "Menu";
