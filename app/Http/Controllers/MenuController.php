@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\MenuCategory;
+use App\Models\MenuItem;
+use Illuminate\Support\Facades\Cache;
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $categories = MenuCategory::with('menuItems')->get();
-
-        return view('menu', compact('categories'));
+        $menuItems = Cache::get("menu_items",function (){
+            return MenuItem::with('category')->get()->groupBy('category.name');
+        });
+        return view('menu', compact('menuItems'));
     }
 }
