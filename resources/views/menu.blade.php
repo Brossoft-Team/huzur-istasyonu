@@ -35,59 +35,6 @@
     </style>
 </head>
 <body class="bg-white">
-    @php
-                $categories = collect([
-                    (object)[
-                        'id' => 1,
-                        'name' => 'Tacos',
-                        'menuItems' => collect([
-                            (object)[
-                                'name' => 'Salmon Tacos',
-                                'price' => 12,
-                                'ingredient' => 'Creamy pasta with salmon, completed by green beans and Indian salad.',
-                                'image_url' => 'https://saraylidoner.com/wp-content/uploads/2021/09/karisik.jpg',
-                            ],
-                            (object)[
-                                'name' => 'Chicken Tacos',
-                                'price' => 10,
-                                'ingredient' => 'Grilled chicken with Mexican salsa and fresh avocado.',
-                                'image_url' => 'https://kebapmakinesi.com/wp-content/uploads/2019/12/Kebap-Resmi-4.jpg?v=1615136936',
-                            ],
-                            (object)[
-                                'name' => 'Veggie Tacos',
-                                'price' => 8,
-                                'ingredient' => 'Roasted veggies with guacamole and black beans.',
-                                'image_url' => 'https://cdn.yemek.com/mnresize/1250/833/uploads/2021/06/ezmeli-kebap-tarifi-1.jpg',
-                            ]
-                        ])
-                    ],
-                    (object)[
-                        'id' => 2,
-                        'name' => 'Burgers',
-                        'menuItems' => collect([
-                            (object)[
-                                'name' => 'Beef Burger',
-                                'price' => 14,
-                                'ingredient' => 'Juicy beef patty with cheddar cheese and caramelized onions.',
-                                'image_url' => 'https://iasbh.tmgrup.com.tr/eb9266/650/344/0/40/812/467?u=https://isbh.tmgrup.com.tr/sbh/2018/11/26/acili-kebap-nasil-yapilir-malzemeler-neler-1543243963585.jpg',
-                            ],
-                            (object)[
-                                'name' => 'Chicken Burger',
-                                'price' => 12,
-                                'ingredient' => 'Crispy chicken breast with lettuce and mayo.',
-                                'image_url' => 'https://silivribalabankebap.com/wp-content/uploads/2024/06/postkebap1.jpg',
-                            ],
-                            (object)[
-                                'name' => 'Veggie Burger',
-                                'price' => 10,
-                                'ingredient' => 'Plant-based patty with fresh tomato and pickles.',
-                                'image_url' => 'https://www.sutispangalti.com/wp-content/uploads/2020/07/adana-kebap-1-sutis-600x600.jpg',
-                            ]
-                        ])
-                    ]
-                ]);
-    @endphp
-
         <!-- Header -->
     <header class="bg-gray-800 text-white p-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold">Huzur İstasyonu</h1>
@@ -105,8 +52,8 @@
         <div>
             <h2 class="text-xl font-semibold mb-4">Kategoriler</h2>
             <ul class="space-y-4">
-                @foreach($categories as $category)
-                    <li><a href="#" class="text-gray-300 hover:text-white sidebar-link">{{ $category->name }}</a></li>
+                @foreach(array_keys($menuItems->toArray()) as $menuItem)
+                    <li><a href="#{{$menuItem}}" class="text-gray-300 hover:text-white sidebar-link">{{ $menuItem }}</a></li>
                 @endforeach
             </ul>
         </div>
@@ -123,22 +70,20 @@
     </div>
 
     <div class="container mx-auto py-6">
-        
-            @foreach($categories as $category)
-                <!-- Her kategori için bir başlık -->
+            @foreach($menuItems as $category => $menuItem)
                 <div class="col-span-3 m-4">
-                    <h2 class="text-2xl font-bold mb-1">{{ $category->name }}</h2>
+                    <h2 class="text-2xl font-bold mb-1" id="{{$category}}">{{ $category }}</h2>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-28">
-                    @foreach($category->menuItems as $item)
+                    @foreach($menuItem as $item)
                         <div class="overflow-hidden col-span-3 md:col-span-1 mx-4">
-                            <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="w-full h-52 object-cover">
+                            <img src="{{ asset("/images/".$item->image) }}" alt="{{ $item->name }}" class="w-full h-52 object-cover">
                             <div class="p-4">
                                 <h3 class="text-2xl font-semibold mb-2">{{ $item->name }}</h3>
                                 <p class="text-gray-600 mb-2">{{ $item->ingredient }}</p>
                                 <div class='flex justify-between items-center'>
-                                    <span class="text-sm text-gray-500">Kategori: {{ $category->name }}</span>
+                                    <span class="text-sm text-gray-500">Kategori: {{ $category }}</span>
                                     <p class="text-red-600 text-lg font-bold mb-2">{{ $item->price }} ₺</p>
                                 </div>
 
