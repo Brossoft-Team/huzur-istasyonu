@@ -46,7 +46,7 @@ class MenuCategoryResource extends Resource
 
                 Tables\Columns\TextColumn::make('menu_items_count')
                     ->counts("menuItems")
-                    ->label('Menü Sayısı')
+                    ->label('Ürün Sayısı')
                     ->numeric()
                     ->sortable()
                     ->default(0)
